@@ -1,0 +1,102 @@
+
+create table grocery_items(id bigserial, created_date timestamp with time zone default now(), updated_date timestamp with time zone default now(), item_name varchar, item_price float, item_quantity integer, deleted_date timestamp with time zone default null, is_deleted smallint default 0);
+
+create table order_details(id bigserial, created_date timestamp with time zone default now(), updated_date timestamp with time zone default now(), order_attributes jsonb, order_price float, payment_method varchar, order_date timestamp with time zone, user_id integer, user_name varchar, order_address varchar, pincode numeric, user_mobileno numeric);
+
+create table admin_master(id bigserial, created_date timestamp with time zone default now(), updated_date timestamp with time zone default now(), name varchar, designation varchar, user_type varchar, deleted_date timestamp with time zone default null );
+
+create table users_info(id bigserial, created_date timestamp with time zone default now(), updated_date timestamp with time zone default now(), name varchar, mobile_number numeric, address varchar, member_type varchar);
+
+
+
+insert into grocery_items(item_name, item_price,item_quantity) values ('parle-g', 40, 50),('colgate', 37, 100),('duracell', 10, 609),('Gemini OIl', 190, 120),('Mortien', 89, 88),('tomato', 29, 90),('butter', 33, 122),('peanuts', 99, 25),('pen', 10, 623),('pencil', 6, 299),('tiffin box', 145, 80),('rice', 34, 829);
+
+
+insert into admin_master(name, designation, user_type) values ('vaibhav','manager','super admin'),('shantanu','software developer','admin'),('onkar','software developer II','super admin'),('shweta','manager','super admin'),('saurabh','CEO','super admin');
+
+
+insert into users_info(name, mobile_number, address , member_type) values ('aman',9988776655, 'banaras, kashi, india', 'regular'),('vishal',8722009567, 'banaras, kashi, india', 'regular'),('rajesh',7769552200, 'banaras, kashi, india', 'regular'),('swami',9087662233, 'banaras, kashi, india', 'regular'), ('harish',9992187655, 'banaras, kashi, india', 'regular');
+
+
+
+
+
+
+
+grocery_items
+
+id
+created_date
+updated_date
+item_name
+item_price
+item_quantity
+deleted_date 
+is_deleted 
+
+
+orders
+
+id
+created_date
+order_attributes
+order_price
+payment_method
+order_date
+user_id
+user_name
+order_address
+pincode
+user_mobileno
+
+
+
+
+admin_master
+
+id
+created_date
+updated_date
+name
+designation
+user_type(admin, superadmin , etc scope for further development)
+deleted_date
+
+
+
+
+
+users_info
+id
+created_date
+updated_date
+name
+mobile_number
+address
+member_type (for further development)
+
+
+
+
+
+
+
+
+
+
+================ API ==========================
+
+
+curl -X POST http://localhost:9000/addNewItemInSystem -H 'user-role:admin' -H 'Content-Type: application/json' -d '{"item_name" : "katraj milk", "item_price" : 20, "item_quantity" : 3}'
+curl -X POST http://localhost:9000/getGroceryList -H 'user-role:admin' -H 'Content-Type: application/json' -d '{"page_size":"10", "page_number":"1"}'
+curl -X POST http://localhost:9000/removeFromGrocery -H 'user-role:admin' -H 'Content-Type: application/json' -d '{"item_id":13}'
+curl -X POST http://localhost:9000/updateItemValues -H 'user-role:admin' -H 'Content-Type:application/json' -d '{"item_name":"new rice","item_price":23, "item_id":12}'
+curl -X POST http://localhost:9000/updateItemValues -H 'user-role:admin' -H 'Content-Type:application/json' -d '{"item_name":"panipuri", "item_id":10}'
+curl -X POST http://localhost:9000/increaseQuantity -H 'user-role:admin' -H 'Content-Type:application/json' -d '{"item_id":10, "increased_quantity":30}'
+curl -X POST http://localhost:9000/decreaseQuantity -H 'user-role:admin' -H 'Content-Type:application/json' -d '{"item_id":10, "decreased_quantity":30}'
+
+
+curl -X POST http://localhost:9000/viewListOfGrocery  -H 'Content-Type:application/json' -d '{"page_size":"10", "page_number":"1"}'
+curl -X POST http://localhost:9000/confirmorder -H 'Content-Type:application/json' -d '{"order_grocery_data":[{"item_id":1, "item_name":"parle-g","item_price":40,"item_quantity":3},{"item_id":3, "item_name":"duracell","item_price":10,"item_quantity":10}], "payment_method":"online","userid":2,"username":"vishal","order_address":"banaras kashi mandir","pincode":411021, "user_mobileno":9922992299}'
+
+
