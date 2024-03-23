@@ -1,3 +1,31 @@
+# Online Grocery System
+
+
+Project Title : Online Grocery System 
+
+Details : The Online Grocery System is a web-based application that allows users to browse, purchase, and manage groceries online. It provides a convenient way for users to order groceries from the comfort of their homes and have them delivered to their doorstep. The system offers a wide range of products including fresh produce, pantry staples, dairy, meat, and more.
+
+
+## Features
+- **Product Catalog**: Browse through a comprehensive catalog of grocery items sorted into categories for easy navigation.
+- **Order Tracking**: Track the status of orders from placement to delivery.
+- **User Profiles**: Personalized user profiles with order history, preferences, and saved addresses.
+- **Admin Dashboard**: Admin interface for managing products, orders, users, and system settings.
+- **Inventory Management**: Keep track of product inventory, restock items, and manage suppliers.
+
+
+## Installation
+
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Configure database connection in setting.js.
+4. Run the application using `npm start`/ 'pm2 start'.
+
+
+## DataBase Setup
+
+============================ DB Changes ====================================================
+
 
 create table grocery_items(id bigserial, created_date timestamp with time zone default now(), updated_date timestamp with time zone default now(), item_name varchar, item_price float, item_quantity integer, deleted_date timestamp with time zone default null, is_deleted smallint default 0);
 
@@ -21,68 +49,7 @@ insert into users_info(name, mobile_number, address , member_type) values ('aman
 
 
 
-
-
-grocery_items
-
-id
-created_date
-updated_date
-item_name
-item_price
-item_quantity
-deleted_date 
-is_deleted 
-
-
-orders
-
-id
-created_date
-order_attributes
-order_price
-payment_method
-order_date
-user_id
-user_name
-order_address
-pincode
-user_mobileno
-
-
-
-
-admin_master
-
-id
-created_date
-updated_date
-name
-designation
-user_type(admin, superadmin , etc scope for further development)
-deleted_date
-
-
-
-
-
-users_info
-id
-created_date
-updated_date
-name
-mobile_number
-address
-member_type (for further development)
-
-
-
-
-
-
-
-
-
+## API EndPoints and dummy requests.
 
 ================ API ==========================
 
@@ -98,5 +65,12 @@ curl -X POST http://localhost:9000/decreaseQuantity -H 'user-role:admin' -H 'Con
 
 curl -X POST http://localhost:9000/viewListOfGrocery  -H 'Content-Type:application/json' -d '{"page_size":"10", "page_number":"1"}'
 curl -X POST http://localhost:9000/confirmorder -H 'Content-Type:application/json' -d '{"order_grocery_data":[{"item_id":1, "item_name":"parle-g","item_price":40,"item_quantity":3},{"item_id":3, "item_name":"duracell","item_price":10,"item_quantity":10}], "payment_method":"online","userid":2,"username":"vishal","order_address":"banaras kashi mandir","pincode":411021, "user_mobileno":9922992299}'
+
+
+
+## Technologies Used
+- **Backend**: Node.js, restify, MongoDB
+- **Database**: PostgreSQL
+
 
 
